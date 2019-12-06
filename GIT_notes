@@ -776,3 +776,47 @@ source ref: master[brach]
 - check in github
 
 -> save and push
+
+
+
+-------  How to pull changes from git_hub cloud  and merge with yours code in eclipse.
+
+user1 : commited file_A  in cloud - comment : 5323223:  added important fix
+
+user2 : he has to pull changes 
+
+1. GIT repository views  ( this is how it will appear)
+	-Branches
+		- Local 
+			- master        : 4131312 - previous commit comment
+		- Remote
+			- orgin/master  :  4131312 - previous commit comment
+2. To see changes that happend in cloud 
+	- select project - right click - team - fetch from upstream
+	- it will show last commit happened in cloud
+	- click ok
+	- now views will be like this
+		GIT repository views  ( this is how it will appear)
+			-Branches
+				- Local 
+					- master        : 4131312 - previous commit comment
+				- Remote
+					- orgin/master  :  5323223:  added important fix   <----- in sync with cloud
+
+3. to apply the remote branch to local master
+	- select project - right click - team - merge -
+	- select a branch or tag to merge into master branch (here master branch is our local repo)
+	  - select : origin/master under remote-tracking
+	- finish
+now  you will see ( ensure you click on REFRESH)
+
+- now views will be like this
+		GIT repository views  ( this is how it will appear)
+			-Branches
+				- Local 
+					- master        : 5323223:  added important fix
+				- Remote
+					- orgin/master  :  5323223:  added important fix   <----- in sync with cloud
+
+
+
