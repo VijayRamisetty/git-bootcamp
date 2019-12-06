@@ -738,4 +738,41 @@ git brach -a
 git remote -v    ---> show from where it is pulled
 
 
------ 
+----- installing git in eclipse
+
+http://download.eclipse.org/egit/updates
+
+------ Non git project in eclipse to Local GIT repo
+
+1. Take a normal project  ( which is not part of git  repo ) , which is  in eclipse , 
+2. right click - Team - Share Project - Click use or create - create repository - finish
+3. now under git-repositories view you can see the project 
+	-local
+	-remote tracking folders etc are visbile
+4. windows -> prespectives -> show prespectives -> more -> select all of git related
+5. open GIT-Staging , select files add to index
+6. add comment 
+7. note : commit and commit-push are there, 
+	select commit : which will commit code locally
+	dont select commit-push as we havent created remote github repo yet
+8. in eclispe - GIT repository views - click on Branches - Local - master - right click , show in History 
+
+--------- Local Git repo code to github 
+
+9. in eclispe - GIT repository views - click on Remotes - right click 
+-> Create remote -> remote name : origin -> configure push -> URI : https://__________.git
+
+create a repo in git_hub and enter in above URI 
+-> fill username and Password
+-> store in secure store
+-> password hint 
+-> advanced
+source ref: master[brach]
+- click add spec
+- save specificaiton of origins
+- save first 
+
+- GIT repository views - click on Remotes  - url -push - ok - done 
+- check in github
+
+-> save and push
