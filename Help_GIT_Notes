@@ -1,0 +1,139 @@
+Git
+----
+
+states
+-	MODIFIED
+-	STAGED 
+-	COMMITED
+----------------------------
+- download GIT
+
+
+
+ bash-3.2$ pwd
+/Users/rami/developer
+
+
+git help
+git help -a 
+git help -g     (guides)
+git help tutorial
+git help glossary
+
+
+bash-3.2$ mkdir mygit
+bash-3.2$ cd mygit/
+
+bash-3.2$ git config --global --list
+fatal: unable to read config file '/Users/rami/.gitconfig': No such file or directory
+bash-3.2$ git config --global user.name "VijayRamisetty"
+bash-3.2$ git config --global --list
+user.name=VijayRamisetty
+bash-3.2$ git config --global user.email "ramisetty.v@outlook.com"
+bash-3.2$ git config --global --list
+user.name=VijayRamisetty
+user.email=ramisetty.v@outlook.com
+bash-3.2$ vim ~/.gitconfig 
+Vijays-MacBook-Air:mygit rami$ cat ~/.gitconfig 
+[user]
+	name = VijayRamisetty
+	email = ramisetty.v@outlook.com
+Vijays-MacBook-Air:mygit rami$ 
+
+setting up git prompt terminal
+-------------------------------
+
+cd /Users/rami/developer/
+curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+
+bash-3.2$ curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 16938  100 16938    0     0  26058      0 --:--:-- --:--:-- --:--:-- 26058
+bash-3.2$ ls -ltr
+total 40
+drwxr-xr-x  3 rami  staff     96 May 10  2019 tarballs
+drwxr-xr-x  5 rami  staff    160 May 26  2019 opt
+drwxr-xr-x  4 rami  staff    128 May 26  2019 notes
+drwxr-xr-x  2 rami  staff     64 Dec  1 00:57 mygit
+-rw-r--r--  1 rami  staff  16938 Dec  6 22:39 git-prompt.sh
+bash-3.2$
+
+
+Vijays-MacBook-Air:~ rami$ cat ~/.bash_rc 
+
+if [ -f ~/developer/utils/git-prompt.sh ]; then
+  source ~/developer/utils/git-prompt.sh
+fi
+
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWCOLORHINTS=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+
+export PROMPT_COMMAND=' __git_ps1 "\n[\e[33m][[\e[m]\A [\e[31m]\u[\e[m]@[\e[32m]\h [\e[34;01m]\l[\e[m] [\e[36m]\w[\e[m]" "[\e[33m]][\e[m]\n$ "'
+
+
+
+
+Vijays-MacBook-Air:~ rami$ source ~/.bash_rc 
+
+[][[]23:02 []rami[]@[]Vijays-MacBook-Air []ttys000[] []~[][]][]
+$ 
+
+[-------or-------]
+
+Vijays-MacBook-Air:~ rami$ cat ~/.bash_rc 
+
+if [ -f ~/developer/utils/git-prompt.sh ]; then
+  source ~/developer/utils/git-prompt.sh
+fi
+
+#export GIT_PS1_SHOWDIRTYSTATE=1
+#export GIT_PS1_SHOWCOLORHINTS=1
+#export GIT_PS1_SHOWUNTRACKEDFILES=1
+
+#export PROMPT_COMMAND=' __git_ps1 "\n[\e[33m][[\e[m]\A [\e[31m]\u[\e[m]@[\e[32m]\h [\e[34;01m]\l[\e[m] [\e[36m]\w[\e[m]" "[\e[33m]][\e[m]\n$ "'
+
+PS1='\[\033[0;32m\]\[\033[0m\033[0;32m\]\u\[\033[0;36m\] @ \[\033[0;36m\]\h \w\[\033[0;32m\]$(__git_ps1)\n\[\033[0;32m\]└─\[\033[0m\033[0;32m\] \$\[\033[0m\033[0;32m\] ▶\[\033[0m\] '
+
+
+Vijays-MacBook-Air:~ rami$ source ~/.bash_rc 
+rami @ Vijays-MacBook-Air ~
+└─ $ ▶
+
+
+
+
+creating - local empty repository
+---------------------------------
+
+
+bash-3.2$ pwd
+/Users/rami/developer/mygit
+bash-3.2$ git status
+fatal: not a git repository (or any of the parent directories): .git
+bash-3.2$ 
+
+mkdir blank-repo
+cd blank-repo
+git init
+
+[ or ] 
+
+be there in mygit 
+git init <proj_name> 
+
+
+
+view commit history
+-----------------
+
+
+git log
+git log -n 4
+
+git log --oneline
+
+git log --oneline -n 4
+
+git log <file-name>

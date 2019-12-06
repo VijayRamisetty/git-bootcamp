@@ -1,0 +1,654 @@
+Git
+----
+
+states
+-	MODIFIED
+-	STAGED 
+-	COMMITED
+
+----------------------------
+- download GIT and install
+----------------------------
+
+
+ bash-3.2$ pwd
+/Users/rami/developer
+
+
+git help
+git help -a 
+git help -g     (guides)
+git help tutorial
+git help glossary
+
+---------------------------
+
+bash-3.2$ mkdir mygit
+bash-3.2$ cd mygit/
+
+bash-3.2$ git config --global --list
+fatal: unable to read config file '/Users/rami/.gitconfig': No such file or directory
+bash-3.2$ git config --global user.name "VijayRamisetty"
+bash-3.2$ git config --global --list
+user.name=VijayRamisetty
+bash-3.2$ git config --global user.email "xxxyyxxyy.y@outlook.com"
+bash-3.2$ git config --global --list
+user.name=VijayRamisetty
+user.email=xxxyyxxyy.y@outlook.com
+bash-3.2$ vim ~/.gitconfig 
+Vijays-MacBook-Air:mygit rami$ cat ~/.gitconfig 
+[user]
+	name = VijayRamisetty
+	email = xxxyyxxyy.y@outlook.com
+Vijays-MacBook-Air:mygit rami$ 
+
+setting up git prompt terminal
+-------------------------------
+
+cd /Users/rami/developer/
+curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+
+bash-3.2$ curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 16938  100 16938    0     0  26058      0 --:--:-- --:--:-- --:--:-- 26058
+bash-3.2$ ls -ltr
+total 40
+drwxr-xr-x  3 rami  staff     96 May 10  2019 tarballs
+drwxr-xr-x  5 rami  staff    160 May 26  2019 opt
+drwxr-xr-x  4 rami  staff    128 May 26  2019 notes
+drwxr-xr-x  2 rami  staff     64 Dec  1 00:57 mygit
+-rw-r--r--  1 rami  staff  16938 Dec  6 22:39 git-prompt.sh
+bash-3.2$
+
+
+Vijays-MacBook-Air:~ rami$ cat ~/.bash_rc 
+
+if [ -f ~/developer/utils/git-prompt.sh ]; then
+  source ~/developer/utils/git-prompt.sh
+fi
+
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWCOLORHINTS=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+
+export PROMPT_COMMAND=' __git_ps1 "\n[\e[33m][[\e[m]\A [\e[31m]\u[\e[m]@[\e[32m]\h [\e[34;01m]\l[\e[m] [\e[36m]\w[\e[m]" "[\e[33m]][\e[m]\n$ "'
+
+
+
+
+Vijays-MacBook-Air:~ rami$ source ~/.bash_rc 
+
+[][[]23:02 []rami[]@[]Vijays-MacBook-Air []ttys000[] []~[][]][]
+$ 
+
+[-------or-------]
+
+Vijays-MacBook-Air:~ rami$ cat ~/.bash_rc 
+
+if [ -f ~/developer/utils/git-prompt.sh ]; then
+  source ~/developer/utils/git-prompt.sh
+fi
+
+#export GIT_PS1_SHOWDIRTYSTATE=1
+#export GIT_PS1_SHOWCOLORHINTS=1
+#export GIT_PS1_SHOWUNTRACKEDFILES=1
+
+#export PROMPT_COMMAND=' __git_ps1 "\n[\e[33m][[\e[m]\A [\e[31m]\u[\e[m]@[\e[32m]\h [\e[34;01m]\l[\e[m] [\e[36m]\w[\e[m]" "[\e[33m]][\e[m]\n$ "'
+
+PS1='\[\033[0;32m\]\[\033[0m\033[0;32m\]\u\[\033[0;36m\] @ \[\033[0;36m\]\h \w\[\033[0;32m\]$(__git_ps1)\n\[\033[0;32m\]└─\[\033[0m\033[0;32m\] \$\[\033[0m\033[0;32m\] ▶\[\033[0m\] '
+
+
+Vijays-MacBook-Air:~ rami$ source ~/.bash_rc 
+rami @ Vijays-MacBook-Air ~
+└─ $ ▶
+
+
+
+
+creating - local empty repository
+---------------------------------
+
+
+bash-3.2$ pwd
+/Users/rami/developer/mygit
+bash-3.2$ git status
+fatal: not a git repository (or any of the parent directories): .git
+bash-3.2$ 
+
+mkdir blank-repo
+cd blank-repo
+git init
+
+[ or ] 
+
+be there in mygit 
+git init <proj_name> 
+
+
+Vijays-MacBook-Air:~ rami$ source ~/.bash_rc 
+rami @ Vijays-MacBook-Air ~
+└─ $ ▶  pwd
+/Users/rami
+rami @ Vijays-MacBook-Air ~
+└─ $ ▶ cd developer/mygit/
+rami @ Vijays-MacBook-Air ~/developer/mygit
+└─ $ ▶ mkdir blank-repo
+rami @ Vijays-MacBook-Air ~/developer/mygit
+└─ $ ▶ cd blank-repo/
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo
+└─ $ ▶ git init
+Initialized empty Git repository in /Users/rami/developer/mygit/blank-repo/.git/
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo (master)
+└─ $ ▶  ls -la
+total 0
+drwxr-xr-x   3 rami  staff   96 Dec  6 23:15 .
+drwxr-xr-x   3 rami  staff   96 Dec  6 23:15 ..
+drwxr-xr-x  10 rami  staff  320 Dec  6 23:15 .git
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo (master)
+└─ $ ▶ 
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo (master)
+└─ $ ▶ cd .git/
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo/.git ( GIT_DIR!) 
+└─ $ ▶ ls -la
+total 24
+drwxr-xr-x  10 rami  staff  320 Dec  6 23:15 .
+drwxr-xr-x   3 rami  staff   96 Dec  6 23:15 ..
+-rw-r--r--   1 rami  staff   23 Dec  6 23:15 HEAD
+drwxr-xr-x   2 rami  staff   64 Dec  6 23:15 branches
+-rw-r--r--   1 rami  staff  137 Dec  6 23:15 config
+-rw-r--r--   1 rami  staff   73 Dec  6 23:15 description
+drwxr-xr-x  13 rami  staff  416 Dec  6 23:15 hooks
+drwxr-xr-x   3 rami  staff   96 Dec  6 23:15 info
+drwxr-xr-x   4 rami  staff  128 Dec  6 23:15 objects
+drwxr-xr-x   4 rami  staff  128 Dec  6 23:15 refs
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo/.git ( GIT_DIR!) 
+└─ $ ▶
+
+
+
+adding a file to a  repository
+----------------------------------------
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ pwd
+/Users/rami/developer/mygit/blank-repo
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ vim resume-of-vijay.txt
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ cat resume-of-vijay.txt 
+I have 8 years if development experience 
+I am experienced in Bigdata , Java , Hadoop & Spark
+Yes i am from India
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ ls
+resume-of-vijay.txt
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git add resume-of-vijay.txt 
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+	new file:   resume-of-vijay.txt
+
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶
+
+-----> Note: git add . ( dot will add all files )
+
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git commit -m "Initial Commit"
+[master (root-commit) 96ffc06] Initial Commit
+ 1 file changed, 3 insertions(+)
+ create mode 100644 resume-of-vijay.txt
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+nothing to commit, working tree clean
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ vim steps-to-good-health.txt
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ cat steps-to-good-health.txt 
+Eat healty food, exercise often.
+
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ ls 
+resume-of-vijay.txt		steps-to-good-health.txt
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	steps-to-good-health.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master)
+└─ $ ▶ git add steps-to-good-health.txt 
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   steps-to-good-health.txt
+
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git commit -m "first commit for the health file"
+[master e504bb3] first commit for the health file
+ 1 file changed, 2 insertions(+)
+ create mode 100644 steps-to-good-health.txt
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+nothing to commit, working tree clean
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ vim steps-to-good-health.txt 
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   steps-to-good-health.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git add steps-to-good-health.txt 
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   steps-to-good-health.txt
+
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git commit -m "Second commit on health file"
+[master 1b78e42] Second commit on health file
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ vim steps-to-good-health.txt 
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ cat steps-to-good-health.txt 
+Eat healty food, exercise often.
+Second line - Drink More water
+third line - Sleep 8 hrs
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   steps-to-good-health.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git commit -a -m "Third commit for the health file"   ---------- > -a , -m at once
+[master 8ff65fd] Third commit for the health file
+ 1 file changed, 1 insertion(+)
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+nothing to commit, working tree clean
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶
+
+
+
+
+view commit history
+-----------------
+
+
+git log
+git log -n 4
+
+git log --oneline
+
+git log --oneline -n 4
+
+git log <file-name>
+
+
+
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git log
+commit 8ff65fda84963c2982ac59f263ff4a61410ae1cf (HEAD -> master)
+Author: VijayRamisetty <xxxyyxxyy.y@outlook.com>
+Date:   Fri Dec 6 23:41:16 2019 +0530
+
+    Third commit for the health file
+
+commit 1b78e4297541f5df0ab36d9bbe115a26502c1fdf
+Author: VijayRamisetty <xxxyyxxyy.y@outlook.com>
+Date:   Fri Dec 6 23:40:03 2019 +0530
+
+    Second commit on health file
+
+commit e504bb32ace6cc6335e324750e0f60c6ab176803
+Author: VijayRamisetty <xxxyyxxyy.y@outlook.com>
+Date:   Fri Dec 6 23:38:28 2019 +0530
+
+    first commit for the health file
+
+commit 96ffc06d007b1660a72ce306d7f6b6de534a505f
+Author: VijayRamisetty <xxxyyxxyy.y@outlook.com>
+Date:   Fri Dec 6 23:32:39 2019 +0530
+
+    Initial Commit
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git log --oneline
+8ff65fd (HEAD -> master) Third commit for the health file
+1b78e42 Second commit on health file
+e504bb3 first commit for the health file
+96ffc06 Initial Commit
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶
+
+
+------ checkout vs rest HEAD -------------------
+
+
+Now : 
+1. edit file A
+2. checkout file A from repository
+3. local changes to file A will be overriden by the checkout file 
+
+
+
+
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ vim sports-lists.txt 
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ cat sports-lists.txt 
+1:cricket
+2:football
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   sports-lists.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git checkout -- sports-lists.txt 
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+nothing to commit, working tree clean
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ cat sports-lists.txt 
+1:cricket
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ vim sports-lists.txt 
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ cat sports-lists.txt 
+1:cricket
+2: adding Hockey
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   sports-lists.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git reset HEAD sports-lists.txt 
+Unstaged changes after reset:
+M	sports-lists.txt
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   sports-lists.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git checkout sports-lists.txt 
+Updated 1 path from the index
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+nothing to commit, working tree clean
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ 
+
+
+------ untack a file  -------------------
+
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ pwd
+/Users/rami/developer/mygit/blank-repo
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ ls
+resume-of-vijay.txt		sports-lists.txt		steps-to-good-health.txt
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ vim test-file
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	test-file
+
+nothing added to commit but untracked files present (use "git add" to track)
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git add test-file 
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   test-file
+
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git rm --cached test-file 
+rm 'test-file'
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	test-file
+
+nothing added to commit but untracked files present (use "git add" to track)
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ rm test-file 
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git status
+On branch master
+nothing to commit, working tree clean
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ 
+
+------------ logging ---------------------------------
+
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git log --oneline 
+d8f86b6 (HEAD -> master) first commit for sports file
+8ff65fd Third commit for the health file
+1b78e42 Second commit on health file
+e504bb3 first commit for the health file
+96ffc06 Initial Commit
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ 
+
+---------- creating branch ---------
+
+1. creating a test-branch
+2. switching btw branches
+3. adding new file to test-branch
+4. switching back to master
+5. merging test-branch to master , where new file of test-branch will added to master
+
+
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ pwd
+/Users/rami/developer/mygit/blank-repo
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git log --oneline
+d8f86b6 (HEAD -> master) first commit for sports file
+8ff65fd Third commit for the health file
+1b78e42 Second commit on health file
+e504bb3 first commit for the health file
+96ffc06 Initial Commit
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git branch test-branch --------------------------------------- > test-branch creation
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git branch
+* master
+  test-branch
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git checkout test-branch-------------------------------------- > switching to test-branch 
+Switched to branch 'test-branch'
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( test-branch) 
+└─ $ ▶ git branch
+  master
+* test-branch
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( test-branch) 
+└─ $ ▶ pwd
+/Users/rami/developer/mygit/blank-repo
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( test-branch) 
+└─ $ ▶ git log --oneline
+d8f86b6 (HEAD -> test-branch, master) first commit for sports file
+8ff65fd Third commit for the health file
+1b78e42 Second commit on health file
+e504bb3 first commit for the health file
+96ffc06 Initial Commit
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( test-branch) 
+└─ $ ▶ vim branch-demo
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( test-branch) 
+└─ $ ▶ git add branch-demo 
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( test-branch) 
+└─ $ ▶ git commit -m " 1st commit in test-branch"  --------------------- > adding a new file to test-branch
+[test-branch 4d1bf70]  1st commit in test-branch
+ 1 file changed, 1 insertion(+)
+ create mode 100644 branch-demo
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( test-branch) 
+└─ $ ▶ git log --oneline
+4d1bf70 (HEAD -> test-branch)  1st commit in test-branch
+d8f86b6 (master) first commit for sports file
+8ff65fd Third commit for the health file
+1b78e42 Second commit on health file
+e504bb3 first commit for the health file
+96ffc06 Initial Commit
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( test-branch) 
+└─ $ ▶ git branch
+  master
+* test-branch
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( test-branch) 
+└─ $ ▶ git checkout master
+Switched to branch 'master'
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git log --oneline
+d8f86b6 (HEAD -> master) first commit for sports file -----------> master donot contain test-branchs file
+8ff65fd Third commit for the health file
+1b78e42 Second commit on health file
+e504bb3 first commit for the health file
+96ffc06 Initial Commit
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git log --oneline --decorate
+d8f86b6 (HEAD -> master) first commit for sports file
+8ff65fd Third commit for the health file
+1b78e42 Second commit on health file
+e504bb3 first commit for the health file
+96ffc06 Initial Commit
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git merge test-branch---------------------------------------- > merging test-branch to master
+Updating d8f86b6..4d1bf70
+Fast-forward
+ branch-demo | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 branch-demo
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git log --oneline 
+4d1bf70 (HEAD -> master, test-branch)  1st commit in test-branch
+d8f86b6 first commit for sports file
+8ff65fd Third commit for the health file
+1b78e42 Second commit on health file
+e504bb3 first commit for the health file
+96ffc06 Initial Commit
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶
+
+
+--------- creating a repo in github
+github.com
+register
+
+create new - https://github.com/new
+
+
+https://github.com/VijayRamisetty/git-bootcamp.git
+
+
+
+blank-repo  (local)  to git hub
+
+git init
+git add README.md 
+git commit -m "first github commit"
+
+git remote add origin https://github.com/VijayRamisetty/git-bootcamp.git
+git push -u origin master
+
+
+
+----- 
+
+rami @ Vijays-MacBook-Air ~/developer/mygit
+└─ $ ▶ pwd
+/Users/rami/developer/mygit
+rami @ Vijays-MacBook-Air ~/developer/mygit
+└─ $ ▶ ls
+blank-repo
+rami @ Vijays-MacBook-Air ~/developer/mygit
+└─ $ ▶ cd blank-repo/
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git remote -v
+origin	https://github.com/VijayRamisetty/git-bootcamp.git (fetch)
+origin	https://github.com/VijayRamisetty/git-bootcamp.git (push)
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git remote add origin https://github.com/VijayRamisetty/git-bootcamp.git
+fatal: remote origin already exists.
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git remote
+origin
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git remote -v
+origin	https://github.com/VijayRamisetty/git-bootcamp.git (fetch)
+origin	https://github.com/VijayRamisetty/git-bootcamp.git (push)
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git push -u origin master
+Username for 'https://github.com': vijayramisetty
+Password for 'https://vijayramisetty@github.com': 
+To https://github.com/VijayRamisetty/git-bootcamp.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'https://github.com/VijayRamisetty/git-bootcamp.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶ git push -f origin master                         ------------ >    https://gist.github.com/mingderwang/94205de855af7c60cafa88564ea6abd7 
+Enumerating objects: 18, done.
+Counting objects: 100% (18/18), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (14/14), done.
+Writing objects: 100% (18/18), 1.62 KiB | 829.00 KiB/s, done.
+Total 18 (delta 5), reused 0 (delta 0)
+remote: Resolving deltas: 100% (5/5), done.
+To https://github.com/VijayRamisetty/git-bootcamp.git
+ + a80314c...4d1bf70 master -> master (forced update)
+rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
+└─ $ ▶
+
+[ i can see my local repo code now in github ]
