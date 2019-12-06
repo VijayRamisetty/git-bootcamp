@@ -421,7 +421,7 @@ rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master)
 └─ $ 
 
 
------- untack a file  -------------------
+------ untrack a file  -------------------
 
 rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
 └─ $ ▶ pwd
@@ -654,7 +654,8 @@ rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master)
 [ i can see my local repo code now in github ]
 
 
-------
+
+----- add new files and pushing them to github
 
 
 rami @ Vijays-MacBook-Air ~/developer/mygit/blank-repo ( master) 
@@ -728,3 +729,13 @@ e504bb3 first commit for the health file
 96ffc06 Initial Commit
 
 
+
+---- how to fork code 
+
+1. get the url https://github.com/SomeOne/abc-project.git
+2.git clone https://github.com/SomeOne/abc-project.git
+git brach -a 
+git remote -v    ---> show from where it is pulled
+
+
+----- 
